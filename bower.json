@@ -1,0 +1,6 @@
+{
+	"name": "backbone.api.vimeo",
+	"version": "0.0.1",
+	"main": ["./backbone.api.vimeo.js"],
+	"dependencies": [ "backbone", "underscore" ]
+}
