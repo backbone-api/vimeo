@@ -13,6 +13,8 @@
 	// Constants
 	var api = "http://vimeo.com/api/v2"
 
+	// Support backbone-app (if available)
+	var Model = ( typeof APP != "undefined" && !_.isUndefined( APP.Model) ) ? APP.Model : Backbone.Model;
 
 	// Base model - mainly used for setup options
 	var Vimeo = new Backbone.Model({
@@ -28,8 +30,8 @@
 	// Models
 
 	//
-	Vimeo.Models.Video = Backbone.Model.extend({
-		url: function(){ return api + "/video/"+ this.id +".json" },
+	Vimeo.Models.Video = Model.extend({
+		url: function(){ return api + "/video/"+ this.id +".json?callback=?" },
 		defaults : {
 		},
 		parse: function( data ){
