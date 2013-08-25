@@ -28,20 +28,32 @@
 	Vimeo.Views = {};
 
 	// Models
+	// JSONP requests for all direct API requests
+	Vimeo.Model = Model.extend({
+
+		sync : function( method, model, options ) {
+
+			options.dataType = 'jsonp';
+
+			return Backbone.sync( method, model, options );
+
+		}
+	});
 
 	//
-	Vimeo.Models.Video = Model.extend({
-		url: function(){ return api + "/video/"+ this.id +".json?callback=?" },
+	Vimeo.Models.Video = Vimeo.Model.extend({
+		url: function(){ return api + "/video/"+ this.id +".json" },
 		defaults : {
 		},
 		parse: function( data ){
-			console.log("Vimeo.Models.Video: ", data);
+			//console.log("Vimeo.Models.Video: ", data);
 			// validate data?
 			return data[0];
 		}
 	});
 
-	// Fallbacks
+
+	// Store in selected namespace(s)
 	//APP = window.APP || (APP = { Models: {}, Collections: {}, Views: {} });
 	if( _.isUndefined(Backbone.API) ) Backbone.API = {};
 	Backbone.API.Vimeo = Vimeo;
